@@ -18,7 +18,7 @@ def run():
     pass
 
 def test():
-  pass
+    pass
 
 def main():
     args = parser.parse_args()
