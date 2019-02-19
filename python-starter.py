@@ -13,11 +13,11 @@ parser.add_argument('--test', dest='isTest', const=True, nargs='?', type=str2boo
 
 
 class Foo:
-    def __init__(self, args):
-        self._args = args
+    def __init__(self, arg):
+        self._arg = arg
         
-    def __enter__(self, args):
-        self.__init__(args)
+    def __enter__(self, arg):
+        self.__init__(arg)
 
     def __exit__(self, exception_type, exception_value, traceback):
         print('Error \'{}\' failed with \'{}\':\n{}'.format(exception_type, exception_value, traceback))
@@ -30,6 +30,15 @@ class Foo:
         """
         # TODO add required exits here
         pass
+    
+    @property
+    def arg(self):
+        return self._arg
+    
+    @arg.setter
+    def arg(self, value):
+        # add value checks here
+        self._arg = value
 
 def run():
     pass
