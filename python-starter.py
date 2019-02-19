@@ -1,7 +1,5 @@
 import argparse
 
-bool isDebug = False
-
 def str2bool(v):
     if v.lower() in ('yes', 'true', 't', 'y', '1', 'enable', 'on'):
         return True
@@ -12,7 +10,26 @@ def str2bool(v):
 
 parser.add_argument('--test', dest='isTest', const=True, nargs='?', type=str2bool,
                     help='True if testing')
-parser.add_argument('--debug', dest='isDebug', help='True for debugging')
+
+
+class Foo:
+    def __init__(self, args):
+        self._args = args
+        
+    def __enter__(self, args):
+        self.__init__(args)
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        print('Error \'{}\' failed with \'{}\':\n{}'.format(exception_type, exception_value, traceback))
+        self.crash_close()
+
+    def crash_close(self):
+        """
+        crash close ensures that errors are effectively traced and
+        all dependencies are safely exited
+        """
+        # TODO add required exits here
+        pass
 
 def run():
     pass
@@ -22,10 +39,6 @@ def test():
 
 def main():
     args = parser.parse_args()
-    if args.isDebug:
-        isDebug = True
-    else:
-        isDebug = False
     
     if args.isTest:
         test()
